@@ -6,6 +6,7 @@
 #include "file_and_stdin_handler.h"
 const int MAX_STDIN = 100;
 
+//this is a github test
 int main(int argc, const char * argv[])
 {
     char* file_name;
