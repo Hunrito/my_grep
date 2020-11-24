@@ -1,0 +1,1 @@
+scp *.* eyalseifert@nova.cs.tau.ac.il:/specific/a/home/cc/students/csguests/eyalseifert/c_lab/ex2/beta1
