@@ -22,15 +22,34 @@ int convertToInt(char *stringToConvert)
         result = result * 10 + (stringToConvert[i] - '0');
         
     }
-    
     return(result);
+}
+
+char* expression_finder(int argc,const char* argv[])
+{
+	int index;
+	for (index = 1; index < argc; index++) 
+	{
+		if (strcmp(argv[index], E_OPERATOR) == 0) 
+		{
+			index++;
+			return strdup(argv[index]);
+		}
+		if (argv[index][0] != 45)
+		{
+			return strdup(argv[index]);
+		}
+	}
+	printf("No expression given.\n");
+	return NULL;
 }
 
 int* find_operators(int argc,const char* argv[]) 
 {
 	int index;
+	int non_command_counter = 0;
 	static int argument_array[] = {0,0,0,0,0,0,0,0,0,0};
-	for (index = 2; index < argc; index++) 
+	for (index = 1; index < argc; index++) 
 	{
 		if (strcmp(argv[index], A_OPERATOR) == 0) 
 		{
@@ -66,10 +85,15 @@ int* find_operators(int argc,const char* argv[])
 		{
 			argument_array[E] = 1;
 		}
+		else if ((argv[index-1][0] != 45))
+		{
+			non_command_counter++;
+		}
 	}
-	if((argv[index-1][0] != 45) && (index != 2))
+	if(non_command_counter == 2)
 	{
 		argument_array[file_exist] = 1;
+		printf("im here\n");
 	}
 	return argument_array;
 }

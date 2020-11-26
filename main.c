@@ -16,11 +16,11 @@ int main(int argc, const char * argv[])
     int curr_a = -1;
     argument_array = find_operators(argc, argv);
     read_from_file = argument_array[9];
-    
+    char* expression = expression_finder(argc, argv);
     if (read_from_file == 1)
     {
         file_name = file_name_finder(argc,argv);
-        file_to_grep(argument_array, file_name, NULL, argv[1], 0, 0, &curr_a);
+        file_to_grep(argument_array, file_name, NULL, expression, 0, 0, &curr_a);
     }
     else
     {
@@ -37,10 +37,10 @@ int main(int argc, const char * argv[])
         int stdin_bytes = 0;
         while(line_eof_helper != NULL)
         {
-            file_to_grep(argument_array, NULL, stdin_line, argv[1], stdin_count, stdin_bytes, &curr_a);
+            file_to_grep(argument_array, NULL, stdin_line, expression, stdin_count, stdin_bytes, &curr_a);
             stdin_bytes += sizeof(stdin_line);
             
-            if(strstr_check_case_insensitive(stdin_line, argv[1], case_insensitive) != NULL)
+            if(strstr_check_case_insensitive(stdin_line, expression, case_insensitive) != NULL)
             {
                 c_argument_counter++;
             }
