@@ -42,9 +42,14 @@ char* e_operation(char* expression)
    return expression;
 }
 
-void grep_execution(int* argument_array, char* current_line,const char* string_to_grep, int line_count, int byte_count, int* curr_a)
+void grep_execution(int* argument_array, char* current_line, char* string_to_grep,
+                                     int line_count, int byte_count, int* curr_a)
 {
     bool case_insensitive = (argument_array[4] == 1);
+    if(argument_array[E] == 1)
+    {
+        string_to_grep = e_operation(string_to_grep);
+    }
     if(argument_array[c] == 1)
     {
         return;
@@ -54,7 +59,7 @@ void grep_execution(int* argument_array, char* current_line,const char* string_t
         if(strstr_check_case_insensitive(current_line, string_to_grep, case_insensitive) != NULL)
         {
             printf("%d:",line_count);
-        }    
+        }
     }
     if(argument_array[b] == 1)
     {
@@ -65,27 +70,40 @@ void grep_execution(int* argument_array, char* current_line,const char* string_t
     }
     if(argument_array[A] == 1)
     {
+        if(*curr_a == -1)
+        {
+           printf("--\n");
+           *curr_a -= 1;
+        }
         if(strstr_check_case_insensitive(current_line, string_to_grep, case_insensitive) != NULL)
         {
             *curr_a = argument_array[A_NUM];
         }
-        else if(*curr_a != -1)
+        else if(*curr_a > -1)
         {
            *curr_a -= 1;
            
-           if(*curr_a == -1)
+           if(*curr_a != -1)
            {
-               printf("--\n");
-           }
-           else
-           {
+               if (argument_array[n] == 1)
+               {
+                   printf("%d-",line_count);
+               }
+               if (argument_array[b] == 1)
+               {
+                   printf("%d-",byte_count);
+               }
                printf("%s", current_line);
            }
         }       
     }
     if(argument_array[v] == 1)
     {
-        if(strstr_check_case_insensitive(current_line, string_to_grep, case_insensitive) == NULL)
+        if(strstr_check_case_insensitive(current_line, string_to_grep, case_insensitive) != NULL)
+        {
+            return;
+        }
+        else
         {
             printf("%s",current_line);
             return;
@@ -104,10 +122,6 @@ void grep_execution(int* argument_array, char* current_line,const char* string_t
         {
             return;
         }
-    }
-    if(argument_array[E] == 1)
-    {
-        string_to_grep = e_operation(string_to_grep);
     }
     if(strstr_check_case_insensitive(current_line, string_to_grep, case_insensitive) != NULL)
     {

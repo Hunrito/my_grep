@@ -39,6 +39,10 @@ char* expression_finder(int argc,const char* argv[])
 		{
 			return strdup(argv[index]);
 		}
+		if (strcmp(argv[index], A_OPERATOR) == 0)
+		{
+			index++;
+		}
 	}
 	printf("No expression given.\n");
 	return NULL;
@@ -56,6 +60,11 @@ int* find_operators(int argc,const char* argv[])
 			argument_array[A] = 1;
 			index++;
 			argument_array[A_NUM] = convertToInt((char *)argv[index]);
+		}
+		else if ((argv[index][0] != 45))
+		{
+			//printf("non command\n");
+			non_command_counter++;
 		}
 		else if (strcmp(argv[index], B_OPERATOR) == 0) 
 		{
@@ -79,21 +88,17 @@ int* find_operators(int argc,const char* argv[])
 		}
 		else if (strcmp(argv[index], V_OPERATOR) == 0) 
 		{
+
 			argument_array[v] = 1;
 		}
 		else if (strcmp(argv[index], E_OPERATOR) == 0) 
 		{
 			argument_array[E] = 1;
 		}
-		else if ((argv[index-1][0] != 45))
-		{
-			non_command_counter++;
-		}
 	}
 	if(non_command_counter == 2)
 	{
 		argument_array[file_exist] = 1;
-		printf("im here\n");
 	}
 	return argument_array;
 }

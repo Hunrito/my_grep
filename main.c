@@ -14,7 +14,7 @@ int main(int argc, const char * argv[])
     char* line_eof_helper;
     int read_from_file;
     int *argument_array = { 0 };
-    int curr_a = -1;
+    int curr_a = -2;
     argument_array = find_operators(argc, argv);
     read_from_file = argument_array[9];
     char* expression = expression_finder(argc, argv);
@@ -29,7 +29,6 @@ int main(int argc, const char * argv[])
         int c_argument_counter = 0;
         int stdin_count = 1;
         line_eof_helper = fgets(stdin_line, MAX_STDIN, stdin);
-        
         if(line_eof_helper != NULL)
         {
             stdin_line = line_eof_helper;
@@ -60,7 +59,7 @@ int main(int argc, const char * argv[])
             printf("%d\n", c_argument_counter);
         }
     }
-
+    free(expression);
     free(stdin_line);
     return 0;
 }
