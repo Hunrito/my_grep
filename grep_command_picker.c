@@ -4,6 +4,9 @@
 #include <string.h>
 #include <stdbool.h>
 #include "argument_handler.h"
+#include "string_list_handler.h"
+#include "regular_expression_handler.h"
+
 const int ARRAY_BUFFER = 100;
 
 char* strstr_check_case_insensitive(const char* string1, const char* string2, bool case_insesitive)
