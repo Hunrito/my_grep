@@ -65,4 +65,3 @@ void print_list(string_list **p_head)
         temp_node = temp_node->next;
     }
 }
-

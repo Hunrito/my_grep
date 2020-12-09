@@ -4,6 +4,7 @@
 #include "grep_command_picker.h"
 #include "argument_handler.h"
 #include "file_and_stdin_handler.h"
+#include "string_list_handler.h"
 const int MAX_STDIN = 100;
 
 
@@ -12,12 +13,23 @@ int main(int argc, const char * argv[])
     char* file_name;
     char* stdin_line = malloc(MAX_STDIN);
     char* line_eof_helper;
-    int read_from_file;
+    int read_from_file, e_expression;
     int *argument_array = { 0 };
     int curr_a = -2;
+    string_list *string_list = NULL;
     argument_array = find_operators(argc, argv);
     read_from_file = argument_array[9];
+    e_expression = argument_array[9];
     char* expression = expression_finder(argc, argv);
+    if(e_expression == 0)
+    {
+        add_node_to_list(expression, &string_list);
+    }
+    else
+    {
+        e_get_string_list(expression, &string_list);
+    }
+    
     if (read_from_file == 1)
     {
         file_name = file_name_finder(argc,argv);
